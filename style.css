@@ -1,0 +1,40 @@
+*{
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box; 
+}
+.tasklist li{
+list-style-type: none;
+}
+.task-list th, td{ 
+   border: 1px solid bisque;
+   text-align: left;
+   padding: 10px;
+
+}
+table{
+   width: 100%;
+   margin-top: 15px;
+}
+.container{
+   padding: 20px;
+   background-color: whitesmoke;
+   margin: 10% auto;
+}
+ .container h1{
+   text-align: center;
+   margin-top: 10px;
+ }
+ .inputt{
+   justify-content: center;
+   display: flex;
+   gap: 50px;
+ }
+
+#clearAllBtn{
+   margin-top: 30px;
+   display: flex;
+   justify-self: center;
+   border-radius: 7px;
+   padding: 6px;
+}
