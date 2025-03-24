@@ -10,8 +10,7 @@ const clearAll = document.getElementById("clearAllBtn");
 
 
  addTaskBtn.addEventListener("click", addTask);
- function addTask() { 
- };
+
 
 function addTask() {
     const Task = newTask.value.trim();
@@ -22,7 +21,7 @@ function addTask() {
     } 
 
 
-    const addTask =document. getElementById("tasklist");
+    const addTask = document. getElementById("tasklist");
     const row =  addTask.insertRow()
     row.insertCell(0).innerText=Task;
     row.insertCell(1).innerText=category;
@@ -37,7 +36,9 @@ completeCheck.appendChild (checkBox);
 }
 
  clearAll.addEventListener("click", clearAllBtn);
+
  function clearAllBtn(){
+
  };
    
 
