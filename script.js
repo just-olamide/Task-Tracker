@@ -20,7 +20,6 @@ function addTask() {
         return;
     } 
 
-
     const addTask = document. getElementById("tasklist");
     const row =  addTask.insertRow()
     row.insertCell(0).innerText=Task;
@@ -35,11 +34,7 @@ completeCheck.appendChild (checkBox);
     newTask.value = ""; 
 }
 
- clearAll.addEventListener("click", clearAllBtn);
-
- function clearAllBtn(){
-
- };
-   
-
-
+ clearAll.addEventListener("click", function(){
+let deleted = document.getElementById('tasklist');
+deleted.style.display = 'none'
+ })
