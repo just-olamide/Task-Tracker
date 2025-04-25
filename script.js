@@ -1,40 +1,82 @@
-const Task = [];
-
-
-const newTask =document.getElementById("taskDescription");
+const newTask = document.getElementById("taskDescription");
 const addTaskBtn = document.getElementById("addTaskButton");
+const taskList = document.getElementById("tasklist");
 const dropDown = document.getElementById("taskCategory");
-// const taskList = document. getElementsById("tasklist");
 const clearAll = document.getElementById("clearAllBtn");
 
 
+//Load person from localstorage
+let persons = JSON.parse(localStorage.getItem("persons")) || [];
 
- addTaskBtn.addEventListener("click", addTask);
-
-
-function addTask() {
-    const Task = newTask.value.trim();
-    const category = dropDown.value;
-    if (Task === ""){
-        alert("must be a task");
-        return;
-    } 
-
-    const addTask = document. getElementById("tasklist");
-    const row =  addTask.insertRow()
-    row.insertCell(0).innerText=Task;
-    row.insertCell(1).innerText=category;
-    row.insertCell(2).innerText=new Date().toLocaleString();
-
-const completeCheck= row.insertCell(3);
-const checkBox = document.createElement("input")
-checkBox.type= "checkbox";
-completeCheck.appendChild (checkBox);
-
-    newTask.value = ""; 
+//function to save to localestorage
+function saveToLocalStorage() {
+  localStorage.setItem("persons", JSON.stringify(persons));
+}
+// function to show user
+function displayUser() {
+  taskList.innerHTML = "";
+  persons.forEach((user, index) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${user.taskDescription}</td>
+      <td>${user.taskCategory}</td>
+      <td>${new Date().toLocaleString()}</td>
+      <td>
+        <button onclick="viewUser(${index})">View</button>
+        <button onclick="editUser(${index})">Edit</button>
+        <button onclick="deleteUser(${index})">Delete</button>
+      </td>
+    `;
+    taskList.appendChild(row);
+  });
 }
 
- clearAll.addEventListener("click", function(){
-let deleted = document.getElementById('tasklist');
-deleted.style.display = 'none'
- })
+
+//Add user(create user and update user)
+
+addTaskBtn.addEventListener("click", () => {
+  const Task = newTask.value.trim();
+  const category = dropDown.value.trim();
+
+  if (Task === "" || category === "") {
+    alert("Please enter a task and select a category.");
+    return;
+  }
+
+  persons.push({ taskDescription: Task, taskCategory: category });
+  saveToLocalStorage();
+  displayUser();
+  newTask.value = "";
+  dropDown.value = "";
+});
+
+function deleteUser(index) {
+  if (confirm("Are you sure?")) {
+    persons.splice(index, 1);
+    saveToLocalStorage();
+    displayUser();
+  }
+}
+
+function viewUser(index) {
+  alert(`Task: ${persons[index].taskDescription}\nCategory: ${users[index].taskCategory}`);
+}
+
+function editUser(index) {
+  newTask.value = persons[index].taskDescription;
+  dropDown.value = persons[index].taskCategory;
+  persons.splice(index, 1); 
+  saveToLocalStorage();
+  displayUser();
+}
+
+clearAll.addEventListener("click", () => {
+  if (confirm("Clear all tasks?")) {
+    persons = [];
+    saveToLocalStorage();
+    displayUser();
+  }
+});
+
+displayUser(); 
+
